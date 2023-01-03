@@ -13,8 +13,7 @@ class StudentController {
 
     async store(req, res) {
         try {
-            const { firstName, secondName, thirdName, adress, phone } = req.body;
-            const student = await Student.create({ firstName, secondName, thirdName, adress, phone });
+            const student = await Student.storeFromRequest(req);
 
             res.status(200).json(student);
         } catch (error) {
@@ -24,8 +23,7 @@ class StudentController {
 
     async show(req, res) {
         try {
-            const { id } = req.params;
-            const student = await Student.findById(id);
+            const student = await Student.findById(req.params.id);
 
             res.status(200).json(student);
         } catch (error) {
@@ -35,15 +33,9 @@ class StudentController {
 
     async update(req, res) {
         try {
-            const { id } = req.params;
-            const { firstName, secondName, thirdName, adress, phone } = req.body;
+            const student = await Student.updateFromRequest(req);
 
-            const result = await Student.replaceOne({ _id: id}, { firstName, secondName, thirdName, adress, phone });
-
-            res.status(200).json({ 
-                data: { firstName, secondName, thirdName, adress, phone },
-                result: result
-            });
+            res.status(200).json(student);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -51,8 +43,11 @@ class StudentController {
 
     async destroy(req, res) {
         try {
-            const { id } = req.params;
-            const result = await Student.deleteOne({ _id: id });
+            const result = await Student.findByIdAndDelete(req.params.id, { new: true });
+
+            if (!result) {
+                return res.status(500).json({ message: "Document not found" });
+            }
 
             res.status(200).json(result);
         } catch (error) {
