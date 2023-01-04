@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-const ElectivesController = require('../controllers/ElectivesController');
+const ElectiveController = require('../controllers/ElectiveController');
 
-router.get('/', ElectivesController.index);
+router.get('/', ElectiveController.index);
 
-router.post('/', ElectivesController.store);
+router.post('/', ElectiveController.store);
 
-router.get('/:id', ElectivesController.show);
+router.get('/:id', ElectiveController.show);
 
-router.put('/:id', ElectivesController.update);
+router.put('/:id', ElectiveController.update);
 
-router.delete('/:id', ElectivesController.destroy);
+router.delete('/:id', ElectiveController.destroy);
 
 module.exports = router;

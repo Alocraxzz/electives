@@ -2,16 +2,17 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const ElectiveSchema = new Schema({
-    hours: { type: "Integer", required: true },
-    direction: { type: "String", required: true },
+    hours: { type: Number, required: true },
+    direction: { type: String, required: true },
     type: {
-        id: { type: Schema.Types.ObjectId, ref: 'foodSchema'}
+        type: Schema.Types.ObjectId, ref: 'TypeOfLesson'
     }
 });
 
 ElectiveSchema.methods.copy = async function copy(from) {
-    this.hours = from.hours;
-    this.direction = from.direction;
+    this.hours = from.hours ?? this.hours;
+    this.direction = from.direction ?? this.direction;
+    this.type = from.type ?? this.type;
 }
 
 module.exports = mongoose.model("Elective", ElectiveSchema);

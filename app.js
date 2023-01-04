@@ -6,7 +6,9 @@ const logger = require('morgan');
 const errorHandler = require('./middleware/errorHandler');
 
 const studentsRouter = require('./routes/students');
-const lecturersRouter = require('./routes/lecturer');
+const lecturersRouter = require('./routes/lecturers');
+const lessonsTypesRouter = require('./routes/lessonsTypes');
+const electivesRouter = require('./routes/electives');
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/students', studentsRouter);
 app.use('/api/lecturers', lecturersRouter);
+app.use('/api/lessonstypes', lessonsTypesRouter);
+app.use('/api/electives', electivesRouter);
 
 app.use(errorHandler);
 

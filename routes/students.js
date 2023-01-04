@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+
 const StudentController = require('../controllers/StudentController');
+
 const { asyncCatch } = require('../utils/catch');
 
 router.get('/', asyncCatch(StudentController.index));
