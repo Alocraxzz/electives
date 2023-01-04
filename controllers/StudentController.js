@@ -1,58 +1,35 @@
 const Student = require("../models/Student");
+const StudentService = require('../services/StudentService');
 
 class StudentController {
     async index(req, res) {
-        try {
-            const students = await Student.find();
+        const students = await StudentService.index();
 
-            res.status(200).json(students);
-        } catch (error) {
-            res.status(500).json(error);
-        }
+        res.status(200).json(students);
     }
 
     async store(req, res) {
-        try {
-            const student = await Student.storeFromRequest(req);
+        const student = await StudentService.store(req.body);
 
-            res.status(200).json(student);
-        } catch (error) {
-            res.status(500).json(error);
-        }
+        res.status(200).json(student);
     }
 
     async show(req, res) {
-        try {
-            const student = await Student.findById(req.params.id);
+        const student = await StudentService.getById(req.params.id, res);
 
-            res.status(200).json(student);
-        } catch (error) {
-            res.status(500).json(error);
-        }
+        res.status(200).json(student);
     }
 
     async update(req, res) {
-        try {
-            const student = await Student.updateFromRequest(req);
+        const result = await StudentService.update(req.params.id, req.body);
 
-            res.status(200).json(student);
-        } catch (error) {
-            res.status(500).json(error);
-        }
+        res.status(200).json(result);
     }
 
     async destroy(req, res) {
-        try {
-            const result = await Student.findByIdAndDelete(req.params.id, { new: true });
+        const result = await StudentService.destroy(req.params.id);
 
-            if (!result) {
-                return res.status(500).json({ message: "Document not found" });
-            }
-
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(500).json(error);
-        }
+        res.status(200).json(result);
     }
 }
 
