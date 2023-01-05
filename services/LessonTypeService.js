@@ -1,4 +1,4 @@
-const LessonType = require('../models/TypeOfLesson');
+const LessonType = require('../models/LessonType');
 
 class LessonTypeService {
     async index() {

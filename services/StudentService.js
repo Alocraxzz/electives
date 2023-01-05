@@ -31,7 +31,9 @@ class StudentService {
         const student = await Student.findById(id);
         const editedStudent = new Student(requestBody);
     
-        if (!student) { throw new Error("Document not found"); }
+        if (!student) { 
+            throw new Error("Document not found"); 
+        }
     
         await student.copy(editedStudent);
     

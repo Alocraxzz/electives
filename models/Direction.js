@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const DirectionSchema = new Schema({
-    direction: { type: String, required: true}
+    direction: { type: String, required: true, unique: true }
 });
 
 DirectionSchema.methods.copy = async function copy(from) {
