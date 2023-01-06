@@ -28,12 +28,15 @@ class ElectiveService {
     }
 
     async update(id, requestBody) {
+        if (!id) {
+            throw new Error("ElectiveService.update method did not receive an id");
+        }
+
         const elective = await Elective.findById(id);
-        const editedElective = new Elective(requestBody);
     
         if (!elective) { throw new Error("Document not found"); }
     
-        await elective.copy(editedElective);
+        await elective.copy(requestBody);
     
         const result = await Elective.replaceOne({ _id: id }, elective);
     

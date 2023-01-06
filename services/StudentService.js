@@ -1,8 +1,30 @@
 const Student = require('../models/Student');
 
+const populatePatter = [
+    {
+        path: "electives",
+        populate: [
+            {
+                path: "subject"
+            },
+            {
+                path: "lessonType"
+            }
+        ]
+    }, 
+    {
+        path: "exams",
+        select: "_id mark subject",
+        populate: {
+            path: "subject"
+        }
+    }
+];
+
 class StudentService {
     async index() {
-        const students = await Student.find();
+        let students = await Student.find()
+            .populate(populatePatter);
 
         return students;
     }
@@ -28,14 +50,19 @@ class StudentService {
     }
 
     async update(id, requestBody) {
+        if (!id) {
+            throw new Error("StudentService.update method did not receive an id");
+        }
+
         const student = await Student.findById(id);
-        const editedStudent = new Student(requestBody);
-    
+
         if (!student) { 
             throw new Error("Document not found"); 
         }
-    
-        await student.copy(editedStudent);
+        
+        console.log(requestBody);
+
+        await student.copy(requestBody);
     
         const result = await Student.replaceOne({ _id: id }, student);
     

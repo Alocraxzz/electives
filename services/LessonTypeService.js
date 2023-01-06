@@ -28,12 +28,15 @@ class LessonTypeService {
     }
 
     async update(id, requestBody) {
+        if (!id) {
+            throw new Error("LessonTypeService.update method did not receive an id");
+        }
+
         const lessonType = await LessonType.findById(id);
-        const editedLessonType = new LessonType(requestBody);
     
         if (!lessonType) { throw new Error("Document not found"); }
     
-        await lessonType.copy(editedLessonType);
+        await lessonType.copy(requestBody);
     
         const result = await LessonType.replaceOne({ _id: id }, lessonType);
     

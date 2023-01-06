@@ -28,12 +28,15 @@ class LecturerService {
     }
 
     async update(id, requestBody) {
+        if (!id) {
+            throw new Error("LecturerService.update method did not receive an id");
+        }
+
         const lecturer = await Lecturer.findById(id);
-        const editedLecturer = new Lecturer(requestBody);
     
         if (!lecturer) { throw new Error("Document not found"); }
     
-        await lecturer.copy(editedLecturer);
+        await lecturer.copy(requestBody);
     
         const result = await Lecturer.replaceOne({ _id: id }, lecturer);
     

@@ -9,7 +9,8 @@ const studentsRouter = require('./routes/students');
 const lecturersRouter = require('./routes/lecturers');
 const lessonsTypesRouter = require('./routes/lessonsTypes');
 const electivesRouter = require('./routes/electives');
-const directionsRouter = require('./routes/directions');
+const subjectRouter = require('./routes/subjects');
+const examsRouter = require('./routes/exams');
 
 const app = express();
 
@@ -27,7 +28,8 @@ app.use('/api/students', studentsRouter);
 app.use('/api/lecturers', lecturersRouter);
 app.use('/api/lessonstypes', lessonsTypesRouter);
 app.use('/api/electives', electivesRouter);
-app.use('/api/directions', directionsRouter);
+app.use('/api/subjects', subjectRouter);
+app.use('/api/exams', examsRouter);
 
 app.use(errorHandler);
 

@@ -3,11 +3,8 @@ const { Schema } = mongoose;
 
 const ElectiveContructSchema = new Schema({
     count:      { type: Number, required: true },
-    amount:     { type: Number, required: true },
-    lecturers: [
-        { type: Schema.Types.ObjectId, ref: "Lecturer" }
-    ]
-});
+    amount:     { type: Number, required: true }
+}, { versionKey: false });
 
 ElectiveContructSchema.methods.copy = async function copy(from) {
     this.hours      = from.hours     ?? this.hours;
