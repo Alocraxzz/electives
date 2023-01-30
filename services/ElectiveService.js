@@ -2,22 +2,14 @@ const Elective = require('../models/Elective');
 
 class ElectiveService {
     async index() {
-        const electives = await Elective.find();
-
-        return electives;
+        return Elective.find();
     }
 
     async store(elective) {
-        const createdElective = await Elective.create(elective);
-
-        return createdElective;
+        return Elective.create(elective);
     }
 
     async getById(id) {
-        if (!id) {
-            throw new Error("ElectiveService.getById method did not receive an id");
-        }
-
         const elective = await Elective.findById(id);
 
         if (!elective) {
@@ -28,30 +20,22 @@ class ElectiveService {
     }
 
     async update(id, requestBody) {
-        if (!id) {
-            throw new Error("ElectiveService.update method did not receive an id");
+        const elective = await Elective.findById(id);
+
+        if (!elective) {
+            throw new Error("Document not found");
         }
 
-        const elective = await Elective.findById(id);
-    
-        if (!elective) { throw new Error("Document not found"); }
-    
         await elective.copy(requestBody);
-    
-        const result = await Elective.replaceOne({ _id: id }, elective);
-    
-        return result;
+
+        return Elective.replaceOne({_id: id}, elective);
     }
 
     async destroy(id) {
-        if (!id) {
-            throw new Error("ElectiveService.destroy method did not receive an id");
-        }
-
-        const result = await Elective.deleteOne({ _id: id});
+        const result = await Elective.deleteOne({_id: id});
 
         if (!result) {
-            throw new Error ("Document not found");
+            throw new Error("Document not found");
         }
 
         return result;

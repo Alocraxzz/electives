@@ -2,22 +2,14 @@ const Lecturer = require('../models/Lecturer');
 
 class LecturerService {
     async index() {
-        const lecturers = await Lecturer.find();
-
-        return lecturers;
+        return Lecturer.find();
     }
 
     async store(lecturer) {
-        const createdLecturer = await Lecturer.create(lecturer);
-
-        return createdLecturer;
+        return Lecturer.create(lecturer);
     }
 
     async getById(id) {
-        if (!id) {
-            throw new Error("LecturerService.getById method did not receive an id");
-        }
-
         const lecturer = await Lecturer.findById(id);
 
         if (!lecturer) {
@@ -28,30 +20,22 @@ class LecturerService {
     }
 
     async update(id, requestBody) {
-        if (!id) {
-            throw new Error("LecturerService.update method did not receive an id");
+        const lecturer = await Lecturer.findById(id);
+
+        if (!lecturer) {
+            throw new Error("Document not found");
         }
 
-        const lecturer = await Lecturer.findById(id);
-    
-        if (!lecturer) { throw new Error("Document not found"); }
-    
         await lecturer.copy(requestBody);
-    
-        const result = await Lecturer.replaceOne({ _id: id }, lecturer);
-    
-        return result;
+
+        return Lecturer.replaceOne({_id: id}, lecturer);
     }
 
     async destroy(id) {
-        if (!id) {
-            throw new Error("LecturerService.destroy method did not receive an id");
-        }
-
-        const result = await Lecturer.deleteOne({ _id: id});
+        const result = await Lecturer.deleteOne({_id: id});
 
         if (!result) {
-            throw new Error ("Document not found");
+            throw new Error("Document not found");
         }
 
         return result;

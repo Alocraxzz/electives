@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const {Schema} = mongoose;
 
-const ElectiveContructSchema = new Schema({
-    count:      { type: Number, required: true },
-    amount:     { type: Number, required: true }
-}, { versionKey: false });
+const ElectiveContractSchema = new Schema({
+    count: {type: Number, required: true},
+    amount: {type: Number, required: true}
+}, {
+    versionKey: false
+});
 
-ElectiveContructSchema.methods.copy = async function copy(from) {
-    this.hours      = from.hours     ?? this.hours;
-    this.direction  = from.direction ?? this.direction;
-    this.type       = from.type      ?? this.type;
-    this.lecturers  = from.lecturers ?? this.lecturers;
+ElectiveContractSchema.methods.copy = async function copy(from) {
+    this.count = from.count ?? this.count;
+    this.amount = from.amount ?? this.amount;
 }
 
-module.exports = mongoose.model("Elective", ElectiveContructSchema);
+module.exports = mongoose.model("Elective", ElectiveContractSchema);

@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const LessonTypeController = require('../controllers/LessonTypeController');
 
-const { asyncCatch } = require('../utils/catch');
+const {asyncCatch} = require('../utils/catch');
 
 router.get('/', asyncCatch(LessonTypeController.index));
 

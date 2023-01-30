@@ -2,22 +2,14 @@ const LessonType = require('../models/LessonType');
 
 class LessonTypeService {
     async index() {
-        const lessonTypes = await LessonType.find();
-
-        return lessonTypes;
+        return LessonType.find();
     }
 
     async store(lessonType) {
-        const createdLessonType = await LessonType.create(lessonType);
-
-        return createdLessonType;
+        return LessonType.create(lessonType);
     }
 
     async getById(id) {
-        if (!id) {
-            throw new Error("LessonTypeService.getById method did not receive an id");
-        }
-
         const lessonType = await LessonType.findById(id);
 
         if (!lessonType) {
@@ -28,30 +20,22 @@ class LessonTypeService {
     }
 
     async update(id, requestBody) {
-        if (!id) {
-            throw new Error("LessonTypeService.update method did not receive an id");
+        const lessonType = await LessonType.findById(id);
+
+        if (!lessonType) {
+            throw new Error("Document not found");
         }
 
-        const lessonType = await LessonType.findById(id);
-    
-        if (!lessonType) { throw new Error("Document not found"); }
-    
         await lessonType.copy(requestBody);
-    
-        const result = await LessonType.replaceOne({ _id: id }, lessonType);
-    
-        return result;
+
+        return LessonType.replaceOne({_id: id}, lessonType);
     }
 
     async destroy(id) {
-        if (!id) {
-            throw new Error("LessonTypeService.destroy method did not receive an id");
-        }
-
-        const result = await LessonType.deleteOne({ _id: id});
+        const result = await LessonType.deleteOne({_id: id});
 
         if (!result) {
-            throw new Error ("Document not found");
+            throw new Error("Document not found");
         }
 
         return result;
