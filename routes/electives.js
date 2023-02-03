@@ -1,18 +1,18 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router  = express.Router()
 
-const ElectiveController = require('../controllers/ElectiveController');
+const ElectiveController = require('../controllers/ElectiveController')
 
-const {asyncCatch} = require('../utils/catch');
+const { asyncCatch } = require('../utils/catch')
 
-router.get('/', asyncCatch(ElectiveController.index));
+router.get('/', asyncCatch(ElectiveController.index))
 
-router.post('/', asyncCatch(ElectiveController.store));
+router.post('/', asyncCatch(ElectiveController.store))
 
-router.get('/:id', asyncCatch(ElectiveController.show));
+router.get('/:id', asyncCatch(ElectiveController.show))
 
-router.put('/:id', asyncCatch(ElectiveController.update));
+router.put('/:id', asyncCatch(ElectiveController.update))
 
-router.delete('/:id', asyncCatch(ElectiveController.destroy));
+router.delete('/:id', asyncCatch(ElectiveController.destroy))
 
-module.exports = router;
+module.exports = router

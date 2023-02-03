@@ -1,45 +1,45 @@
-const Lecturer = require('../models/Lecturer');
+const Lecturer = require('../models/Lecturer')
 
 class LecturerService {
-    async index() {
-        return Lecturer.find();
+    async index () {
+        return Lecturer.find()
     }
 
-    async store(lecturer) {
-        return Lecturer.create(lecturer);
+    async store (lecturer) {
+        return Lecturer.create(lecturer)
     }
 
-    async getById(id) {
-        const lecturer = await Lecturer.findById(id);
+    async getById (id) {
+        const lecturer = await Lecturer.findById(id)
 
         if (!lecturer) {
-            throw new Error("Document not found");
+            throw new Error('Document not found')
         }
 
-        return lecturer;
+        return lecturer
     }
 
-    async update(id, requestBody) {
-        const lecturer = await Lecturer.findById(id);
+    async update (id, requestBody) {
+        const lecturer = await Lecturer.findById(id)
 
         if (!lecturer) {
-            throw new Error("Document not found");
+            throw new Error('Document not found')
         }
 
-        await lecturer.copy(requestBody);
+        await lecturer.copy(requestBody)
 
-        return Lecturer.replaceOne({_id: id}, lecturer);
+        return Lecturer.replaceOne({ _id: id }, lecturer)
     }
 
-    async destroy(id) {
-        const result = await Lecturer.deleteOne({_id: id});
+    async destroy (id) {
+        const result = await Lecturer.deleteOne({ _id: id })
 
         if (!result) {
-            throw new Error("Document not found");
+            throw new Error('Document not found')
         }
 
-        return result;
+        return result
     }
 }
 
-module.exports = new LecturerService();
+module.exports = new LecturerService()

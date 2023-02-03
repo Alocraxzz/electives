@@ -1,18 +1,18 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router  = express.Router()
 
-const StudentController = require('../controllers/StudentController');
+const StudentController = require('../controllers/StudentController')
 
-const {asyncCatch} = require('../utils/catch');
+const { asyncCatch } = require('../utils/catch')
 
-router.get('/', asyncCatch(StudentController.index));
+router.get('/', asyncCatch(StudentController.index))
 
-router.post('/', asyncCatch(StudentController.store));
+router.post('/', asyncCatch(StudentController.store))
 
-router.get('/:id', asyncCatch(StudentController.show));
+router.get('/:id', asyncCatch(StudentController.show))
 
-router.put('/:id', asyncCatch(StudentController.update));
+router.put('/:id', asyncCatch(StudentController.update))
 
-router.delete('/:id', asyncCatch(StudentController.destroy));
+router.delete('/:id', asyncCatch(StudentController.destroy))
 
-module.exports = router;
+module.exports = router

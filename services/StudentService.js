@@ -1,67 +1,67 @@
-const Student = require('../models/Student');
+const Student = require('../models/Student')
 
 const populatePattern = [
     {
-        path: "electives",
+        path:     'electives',
         populate: [
-            {path: "subject"},
-            {path: "lessonType"}
-        ]
+            { path: 'subject' },
+            { path: 'lessonType' },
+        ],
     },
     {
-        path: "exams", select: "_id mark subject",
+        path:     'exams', select: '_id mark subject',
         populate: {
-            path: "subject"
-        }
-    }
-];
+            path: 'subject',
+        },
+    },
+]
 
 class StudentService {
-    async index() {
+    async index () {
         return Student.find()
-            .populate(populatePattern);
+            .populate(populatePattern)
     }
 
-    async store(student) {
-        return Student.create(student);
+    async store (student) {
+        return Student.create(student)
     }
 
-    async getById(id) {
+    async getById (id) {
         const student = await Student.findById(id)
-            .populate(populatePattern);
+            .populate(populatePattern)
 
-        console.log("student virtual id: " + student.id);
-
-        if (!student) {
-            throw new Error("Document not found");
-        }
-
-        return student;
-    }
-
-    async update(id, requestBody) {
-        const student = await Student.findById(id);
+        console.log('student virtual id: ' + student.id)
 
         if (!student) {
-            throw new Error("Document not found");
+            throw new Error('Document not found')
         }
 
-        console.log("StudentService update requestBody:" + requestBody);
-
-        await student.copy(requestBody);
-
-        return Student.replaceOne({_id: id}, student);
+        return student
     }
 
-    async destroy(id) {
-        const result = await Student.deleteOne({_id: id});
+    async update (id, requestBody) {
+        const student = await Student.findById(id)
+
+        if (!student) {
+            throw new Error('Document not found')
+        }
+
+        console.log('StudentService update requestBody:' + requestBody)
+
+        await student.copy(requestBody)
+
+        return Student.replaceOne({ _id: id }, student)
+    }
+
+    async destroy (id) {
+        const result = await Student.deleteOne({ _id: id })
 
         if (!result) {
-            throw new Error("Document not found");
+            throw new Error('Document not found')
         }
 
-        return result;
+        return result
     }
 }
 
-module.exports = new StudentService();
+module.exports = new StudentService()
