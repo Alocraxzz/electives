@@ -2,7 +2,7 @@ const Elective = require('../models/Elective')
 
 class ElectiveService {
     async index () {
-        return Elective.find()
+        return Elective.find().populate(["subject", "lessonType"])
     }
 
     async store (elective) {
@@ -10,7 +10,7 @@ class ElectiveService {
     }
 
     async getById (id) {
-        const elective = await Elective.findById(id)
+        const elective = await Elective.findById(id).populate(["subject", "lessonType"])
 
         if (!elective) {
             throw new Error('Document not found')

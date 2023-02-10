@@ -2,7 +2,9 @@ const Subject = require('../models/Subject')
 
 class SubjectService {
     async index () {
-        return Subject.find()
+        const subjects = Subject.find();
+
+        return subjects;
     }
 
     async store (subject) {

@@ -7,8 +7,6 @@ const StudentSchema = new Schema({
     thirdName:  { type: String, required: true },
     address:    { type: String, required: true },
     phone:      { type: String, required: true },
-    electives:  [{ type: Schema.Types.ObjectId, ref: 'Elective' }],
-    exams:      [{ type: Schema.Types.ObjectId, ref: 'Exam' }],
 }, {
     versionKey: false,
 })
@@ -19,9 +17,6 @@ StudentSchema.methods.copy = async function copy (from) {
     from.thirdName  && (this.thirdName  = from.thirdName)
     from.address    && (this.address    = from.address)
     from.phone      && (this.phone      = from.phone)
-
-    from.electives  && (this.electives  = from.electives)
-    from.exams      && (this.exams      = from.exams)
 }
 
 module.exports = mongoose.model('Student', StudentSchema)

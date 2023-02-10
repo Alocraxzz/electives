@@ -1,34 +1,32 @@
 const Student = require('../models/Student')
 
-const populatePattern = [
-    {
-        path:     'electives',
-        populate: [
-            { path: 'subject' },
-            { path: 'lessonType' },
-        ],
-    },
-    {
-        path:     'exams', select: '_id mark subject',
-        populate: {
-            path: 'subject',
-        },
-    },
-]
+// const populatePattern = [
+//     {
+//         path:     'electives',
+//         populate: [
+//             { path: 'subject' },
+//             { path: 'lessonType' },
+//         ],
+//     },
+//     {
+//         path:     'exams', select: '_id mark subject',
+//         populate: {
+//             path: 'subject',
+//         },
+//     },
+// ]
 
 class StudentService {
     async index () {
-        return Student.find()
-            .populate(populatePattern)
+        return Student.find();
     }
 
     async store (student) {
-        return Student.create(student)
+        return Student.create(student);
     }
 
     async getById (id) {
-        const student = await Student.findById(id)
-            .populate(populatePattern)
+        const student = await Student.findById(id);
 
         console.log('student virtual id: ' + student.id)
 
